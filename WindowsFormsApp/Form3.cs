@@ -25,6 +25,14 @@ namespace WindowsFormsApp
             string constr = ConfigurationManager.ConnectionStrings["dbConnection"].ConnectionString;
             con = new SqlConnection(constr);
         }
+        private void ClearFeilds()
+        {
+            txtEmpId.Clear();
+            txtEmpName.Clear();
+            txtCity.Clear();
+            txtSal.Clear();
+        }
+
         private DataSet GetAllEmployees()
         {
             string qry = "select * from employee";
@@ -71,6 +79,90 @@ namespace WindowsFormsApp
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ds = GetAllEmployees();
+                DataRow row = ds.Tables["emp"].Rows.Find(txtEmpId.Text);
+                if (row != null)
+                {
+                    txtEmpName.Text = row["name"].ToString();
+                    txtCity.Text = row["city"].ToString();
+                    txtSal.Text = row["salary"].ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Record not inserted");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ds= GetAllEmployees();
+                DataRow row = ds.Tables["emp"].Rows.Find(txtEmpId.Text);
+                if (row != null)
+                {
+                    row["name"] = txtEmpName.Text;
+                    row["city"] = txtCity.Text;
+                    row["salary"] = txtSal.Text;
+
+                    int result = da.Update(ds.Tables["emp"]);
+                    if (result >=1) {
+                        MessageBox.Show("record updated");
+                        ClearFeilds();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("record not found");
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message );
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ds = GetAllEmployees();
+                DataRow row = ds.Tables["emp"].Rows.Find(txtEmpId.Text);
+                if(row != null)
+                {
+                    row.Delete();
+                    int result = da.Update(ds.Tables["emp"]);
+                    if (result >= 1)
+                    {
+                        MessageBox.Show("record deleted");
+                        ClearFeilds();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("record not found");
+                }
+            }catch( Exception ex)
+            {
+                MessageBox.Show (ex.Message );
+            }
+        }
+
+        private void btnShowList_Click(object sender, EventArgs e)
+        {
+            ds=GetAllEmployees();
+            dataGridView1.DataSource = ds.Tables["emp"];
         }
     }
 }

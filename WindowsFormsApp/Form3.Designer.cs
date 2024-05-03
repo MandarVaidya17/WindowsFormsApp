@@ -53,6 +53,7 @@
             this.btnShowList.TabIndex = 27;
             this.btnShowList.Text = "Show all list";
             this.btnShowList.UseVisualStyleBackColor = true;
+            this.btnShowList.Click += new System.EventHandler(this.btnShowList_Click);
             // 
             // dataGridView1
             // 
@@ -100,6 +101,7 @@
             this.btnSearch.TabIndex = 21;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnDelete
             // 
@@ -109,6 +111,7 @@
             this.btnDelete.TabIndex = 20;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -118,6 +121,7 @@
             this.btnUpdate.TabIndex = 19;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnSave
             // 
